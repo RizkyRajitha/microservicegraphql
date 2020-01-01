@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "babel-watch -L src/index.js "
+    "watch": "babel-watch -L src/index.js ",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo"
   },
   "author": "",
   "license": "ISC",

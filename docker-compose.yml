@@ -2,6 +2,8 @@ version: "3"
 services:
   listing-service:
     build: "./listing-service"
+    environment: 
+      - DB_URI=mysql://root:password@listing-service-db/db?charset=UTF8 
     depends_on:
       - listing-service-db
     volumes:
@@ -12,7 +14,6 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db
     image: mysql:5.7.20
-
     ports:
       - 0.0.0.0:7200:3306
 
@@ -22,6 +23,8 @@ services:
       - user-service-db
     volumes:
       - ./user-service:/opt/app
+    environment: 
+      - DB_URI=mysql://root:password@user-service-db/db?charset=UTF8 
 
   user-service-db:
     environment:
