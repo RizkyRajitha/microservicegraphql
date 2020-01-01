@@ -1,11 +1,24 @@
 version: "3"
 services:
+  apigateway:
+    build: "./apigateway"
+
+    depends_on:
+      - listing-service
+      - user-service
+    ports:
+      - 7000:7000
+    volumes:
+      - ./apigateway:/opt/app
+
   listing-service:
     build: "./listing-service"
-    environment: 
-      - DB_URI=mysql://root:password@listing-service-db/db?charset=UTF8 
+    environment:
+      - DB_URI=mysql://root:password@listing-service-db/db?charset=UTF8
     depends_on:
       - listing-service-db
+    ports:
+      - 7100:7100
     volumes:
       - ./listing-service:/opt/app
 
@@ -23,8 +36,10 @@ services:
       - user-service-db
     volumes:
       - ./user-service:/opt/app
-    environment: 
-      - DB_URI=mysql://root:password@user-service-db/db?charset=UTF8 
+    environment:
+      - DB_URI=mysql://root:password@user-service-db/db?charset=UTF8
+    ports:
+      - 7101:7101
 
   user-service-db:
     environment:
