@@ -20,4 +20,16 @@ export default class usersService {
       .json();
     return data;
   }
+
+  static async createUserSession({ email, password }) {
+    const data = await got
+      .post(USERS_SERVICE_URI + "/session", {
+        json: {
+          email,
+          password
+        }
+      })
+      .json();
+    return data;
+  }
 }

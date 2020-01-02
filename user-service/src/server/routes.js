@@ -1,8 +1,47 @@
-import { Users } from "#root/db/models";
+import { Users, UserSession } from "#root/db/models";
+import { addHours } from "date-fns";
 import generateUUID from "../helpers/generateUUID";
 import generateHash from "../helpers/generateHash";
+import compareHash from "../helpers/passwordCompare";
+
+const USER_SESSION_TIMEOUT = 1;
 
 const setupRoutes = app => {
+  app.post("/session", async (req, res, next) => {
+    console.log(req.body);
+    if (!req.body.email || !req.body.password) {
+      return next(new Error("invalid data"));
+    }
+
+    const user = await Users.findOne({
+      attributes: {},
+      where: { email: req.body.email }
+    });
+
+    console.log(user);
+
+    if (!user) {
+      return next(new Error("User not found"));
+    }
+
+    if (!compareHash(req.body.password, user.passwordHash)) {
+      return next(new Error("invalid password"));
+    }
+
+    const expirestime = addHours(new Date(), USER_SESSION_TIMEOUT);
+    console.log(expirestime);
+
+    var sessionToken = generateUUID();
+
+    var newUserSession = await UserSession.create({
+      expriesAt: expirestime,
+      id: sessionToken,
+      userId: user.id
+    });
+
+    return res.json(newUserSession);
+  });
+
   app.post("/newuser", async (req, res, next) => {
     console.log(req.body);
     if (!req.body.email || !req.body.password || !req.body.name) {
