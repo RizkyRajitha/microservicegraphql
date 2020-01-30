@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <Wrapper>
       <Container>
-        <Content>asas</Content>
+        <Content>asassasasasas</Content>
         <Sidebar>
           <Login />
         </Sidebar>

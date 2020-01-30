@@ -21,6 +21,17 @@ export default class usersService {
     return data;
   }
 
+  static async fetchOneUser({ userId }) {
+    console.log("fetch one service" + userId);
+
+    const data = await got
+      .get(USERS_SERVICE_URI + "/getoneuser/" + userId)
+      .json();
+
+    console.log(data);
+    return data;
+  }
+
   static async createUserSession({ email, password }) {
     const data = await got
       .post(USERS_SERVICE_URI + "/session", {

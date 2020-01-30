@@ -18,7 +18,7 @@ const setupRoutes = app => {
       where: { email: req.body.email }
     });
 
-    console.log(user);
+    // console.log(user);
 
     if (!user) {
       return next(new Error("User not found"));
@@ -63,8 +63,24 @@ const setupRoutes = app => {
 
   app.get("/listall", async (req, res, next) => {
     const users = await Users.findAll();
-    console.log(users);
+    // console.log(users);
     return res.json(users);
+  });
+
+  app.get("/getoneuser/:id", async (req, res, next) => {
+    try {
+      const users = await Users.findByPk(req.params.id);
+
+      if (users) {
+        console.log("get one user");
+        console.log(users);
+        return res.json(users);
+      } else {
+        return next(new Error("invalid UID"));
+      }
+    } catch (error) {
+      return next(error);
+    }
   });
 };
 

@@ -1,11 +1,11 @@
-// import { useMutation } from "@apollo/react-hooks";
-// import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 import React from "react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 // import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-// import TextInput from "#root/components/shared/TextInput";
+import TextInput from "#root/components/shared/TextInput";
 // import { setSession } from "#root/store/ducks/session";
 
 const Label = styled.label`
@@ -30,10 +30,51 @@ const OrSignUp = styled.span`
   font-size: 0.9rem;
 `;
 
+const mutation = gql`
+mutation($email:String!,$password:String!){
+  createUserSession(email:$email , password:$password){
+    id
+    user{
+      email
+      id
+    }
+  }
+}
+`
+
 // const Login = ({ onChangeToSignUp: pushChangeToSignUp }) => {
 const Login = () => {
+  const {
+    formState: { isSubmitting },
+    handleSubmit,
+    register
+  } = useForm();
+
+  const onSubmit = handleSubmit(({ email, password }) => {
+    console.log(email, password);
+  });
+
   return (
-<h1>sas</h1>   
+    <form onSubmit={onSubmit}>
+      <Label>
+        <LabelText>Email</LabelText>
+        <TextInput
+          disabled={isSubmitting}
+          name="email"
+          type="email"
+          ref={register}
+        ></TextInput>
+        <LabelText>Password</LabelText>
+
+        <TextInput
+          disabled={isSubmitting}
+          name="password"
+          type="password"
+          ref={register}
+        ></TextInput>
+<LoginButton type='submit' disabled={isSubmitting} >Login</LoginButton>
+      </Label>
+    </form>
   );
 };
 
