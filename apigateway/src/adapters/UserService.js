@@ -55,4 +55,16 @@ export default class usersService {
 
     return data;
   }
+
+  static async deleteUserSession({ sessionId }) {
+    console.log("delete session " + sessionId);
+
+    const data = await got
+      .delete(USERS_SERVICE_URI + "/deletesession/" + sessionId)
+      .json();
+
+    console.log(data);
+
+    return data;
+  }
 }

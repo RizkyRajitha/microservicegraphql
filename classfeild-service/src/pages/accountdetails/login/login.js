@@ -44,7 +44,7 @@ const mutation = gql`
 `;
 
 // const Login = ({ onChangeToSignUp: pushChangeToSignUp }) => {
-const Login = () => {
+const Login = props => {
   const dispatch = useDispatch();
   const [createUserSession] = useMutation(mutation);
 
@@ -84,6 +84,8 @@ const Login = () => {
           Login
         </LoginButton>
       </Label>
+
+      <button onClick={() => props.switch()}>OrSignUp</button>
     </form>
   );
 };
