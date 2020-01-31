@@ -82,6 +82,24 @@ const setupRoutes = app => {
       return next(error);
     }
   });
+
+  app.get("/getsession/:sessionid", async (req, res, next) => {
+    try {
+      const userSession = await UserSession.findByPk(req.params.sessionid);
+
+      if (userSession) {
+        console.log("get sessionn");
+        // console.log(userSession);
+        return res.json(userSession);
+      } else {
+        return next(new Error("invalid session id"));
+      }
+    } catch (error) {
+      console.log("error session id ");
+
+      return next(error);
+    }
+  });
 };
 
 export default setupRoutes;

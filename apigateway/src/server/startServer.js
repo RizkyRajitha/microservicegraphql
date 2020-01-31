@@ -7,6 +7,7 @@ import accessEnv from "#root/helpers/accessEnv";
 import resolvers from "#root/graphql/resolvers";
 import typeDefs from "#root/graphql/typeDefs";
 import formatGraphQLErrors from "./formatGraphqlErrors";
+import injectSession from "./injectSession";
 
 const port = accessEnv("port", 7000);
 
@@ -19,7 +20,7 @@ const apolloServer = new ApolloServer({
 
 const app = express();
 app.use(cookieparser());
-
+app.use(injectSession)
 app.use(
   cors({
     origin: (origin, cb) => cb(null, true),

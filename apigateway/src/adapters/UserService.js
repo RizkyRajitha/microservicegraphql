@@ -43,4 +43,16 @@ export default class usersService {
       .json();
     return data;
   }
+
+  static async getSession({ sessionId }) {
+    console.log("get session " + sessionId);
+
+    const data = await got
+      .get(USERS_SERVICE_URI + "/getsession/" + sessionId)
+      .json();
+
+    console.log(data);
+
+    return data;
+  }
 }
