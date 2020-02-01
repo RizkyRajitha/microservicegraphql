@@ -2,7 +2,9 @@ version: "3"
 services:
   apigateway:
     build: "./apigateway"
-
+    environment: 
+      - LISTINGS_SERVICE_URI=http://listing-service:7100
+      - USERS_SERVICE_URI=http://user-service:7101
     depends_on:
       - listing-service
       - user-service

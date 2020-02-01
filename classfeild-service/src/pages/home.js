@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import graphqlClient from "../components/api/graphqlclient";
 // import Login from "./accountdetails/login/login";
 import AccountDetails from "./accountdetails/accountdetails";
+import Listings from "./accountdetails/listings/listings";
 import { useDispatch } from "react-redux";
 import { setSession } from "../store/ducks/session";
 
@@ -66,7 +67,9 @@ const Home = () => {
   return (
     <Wrapper>
       <Container>
-        <Content>asassasasasas</Content>
+        <Content>
+          <Listings />
+        </Content>
         {loading ? (
           <Sidebar>
             <AccountDetails />

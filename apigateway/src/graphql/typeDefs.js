@@ -25,7 +25,8 @@ const typeDefs = gql`
   type Mutation {
     createUser(name: String!, email: String!, password: String!): User!
     createUserSession(email: String!, password: String!): UserSession!
-    deleteUserSession(sessionId:ID!):Boolean!
+    createListing(title: String!, description: String!): Listing!
+    deleteUserSession(sessionId: ID!): Boolean!
   }
 
   type Query {

@@ -1,6 +1,6 @@
 import got from "got";
-
-const USERS_SERVICE_URI = "http://user-service:7101";
+import accessEnv from "../helpers/accessEnv";
+const USERS_SERVICE_URI = accessEnv("USERS_SERVICE_URI");
 
 export default class usersService {
   static async fetchAllusers() {
